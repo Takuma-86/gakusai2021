@@ -3,7 +3,7 @@ import time
 import posix_ipc
 import json
 
-A_PHASE = 27 
+A_PHASE = 27
 A_ENABLE = 22
 B_PHASE = 5
 B_ENABLE = 25
@@ -30,6 +30,8 @@ pi.set_PWM_dutycycle(SERVO,145)
 right = 1 #仮置き、エラーでるの気持ち悪いから
 left = 1
 radius = 1
+angle = 0
+shot = 0
 
 def main():
     mq = posix_ipc.MessageQueue("/gakusai2021.1")
@@ -43,7 +45,7 @@ def main():
             print(movementJsonCode["shoot"])
             print(movementJsonCode["LR"])
             #以下、入力に対して機体を動かすプログラム
-            #left,right,shot,radius,angle
+            #変数left,right,shot,radius,angle
             if shot == 1:
                 shot()
 
@@ -54,7 +56,7 @@ def main():
                     left_rotation()
 
 
-            if radius < "○○○" : #停止
+            if radius < 5 : #停止(仮置き)ジョイスティックのあそびを考慮
                 stop()
             else:
                 move() #動く
