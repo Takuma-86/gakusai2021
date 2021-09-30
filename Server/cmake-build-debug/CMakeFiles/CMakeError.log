@@ -1,0 +1,15 @@
+Performing C++ SOURCE FILE Test _flag_supported failed with the following output:
+Change Dir: /home/pi/gakusai2021/Server/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_f84d0/fast && /usr/bin/make -f CMakeFiles/cmTC_f84d0.dir/build.make CMakeFiles/cmTC_f84d0.dir/build
+make[1]: Entering directory '/home/pi/gakusai2021/Server/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_f84d0.dir/src.cxx.o
+/usr/bin/c++    -pthread -lrt -D_flag_supported   /W4 -o CMakeFiles/cmTC_f84d0.dir/src.cxx.o -c /home/pi/gakusai2021/Server/cmake-build-debug/CMakeFiles/CMakeTmp/src.cxx
+c++: error: /W4: No such file or directory
+make[1]: *** [CMakeFiles/cmTC_f84d0.dir/build.make:66: CMakeFiles/cmTC_f84d0.dir/src.cxx.o] Error 1
+make[1]: Leaving directory '/home/pi/gakusai2021/Server/cmake-build-debug/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_f84d0/fast] Error 2
+
+
+Source file was:
+int main() { return 0; }

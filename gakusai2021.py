@@ -1,5 +1,7 @@
 import pigpio
 import time
+import posix_ipc
+import json
 
 A_PHASE = 27 
 A_ENABLE = 22
@@ -25,9 +27,21 @@ pi.set_PWM_range(SERVO,2000) #-90°:50 0°:145 90°:240 5°刻み(19刻み)で�
 pulse = 145 #初期設定（砲塔0°、モーター停止）
 pi.set_PWM_dutycycle(SERVO,145)
 
+right = 1 #仮置き、エラーでるの気持ち悪いから
+left = 1
+radius = 1
+
 def main():
+    mq = posix_ipc.MessageQueue("/gakusai2021.1")
     try:
         while 1:
+            mqs = mq.receive()
+            movementJsonCode = json.loads(mqs[0].decode())
+            # 以下の入出力を参考すること
+            print(movementJsonCode["joystick"]["r"])
+            print(movementJsonCode["joystick"]["sita"])
+            print(movementJsonCode["shoot"])
+            print(movementJsonCode["LR"])
             #以下、入力に対して機体を動かすプログラム
             #left,right,shot,radius,angle
             if shot == 1:

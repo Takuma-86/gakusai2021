@@ -1,0 +1,3 @@
+/home/pi/gakusai2021/Server/cmake-build-release/CMakeFiles/rebuild_cache.dir
+/home/pi/gakusai2021/Server/cmake-build-release/CMakeFiles/Server.dir
+/home/pi/gakusai2021/Server/cmake-build-release/CMakeFiles/edit_cache.dir

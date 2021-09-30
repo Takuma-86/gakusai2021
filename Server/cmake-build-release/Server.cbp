@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Server"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\usr\;CMake Files\..\..\..\..\usr\local\;CMake Files\..\..\..\..\usr\local\lib\;CMake Files\..\..\..\..\usr\local\lib\cmake\;CMake Files\..\..\..\..\usr\local\lib\cmake\opencv4\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/pi/gakusai2021/Server/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/pi/gakusai2021/Server/cmake-build-release/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/pi/gakusai2021/Server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/pi/gakusai2021/Server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/pi/gakusai2021/Server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/pi/gakusai2021/Server/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/pi/gakusai2021/Server/cmake-build-release/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/pi/gakusai2021/Server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/pi/gakusai2021/Server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/pi/gakusai2021/Server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Server">
+				<Option output="/home/pi/gakusai2021/Server/cmake-build-release/Server" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/pi/gakusai2021/Server/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/include/opencv4"/>
+					<Add directory="/usr/include/c++/8"/>
+					<Add directory="/usr/include/arm-linux-gnueabihf/c++/8"/>
+					<Add directory="/usr/include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/arm-linux-gnueabihf/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/arm-linux-gnueabihf/8/include-fixed"/>
+					<Add directory="/usr/include/arm-linux-gnueabihf"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/pi/gakusai2021/Server/cmake-build-release/Makefile&quot;  VERBOSE=1 Server"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/pi/gakusai2021/Server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/pi/gakusai2021/Server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/pi/gakusai2021/Server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Server/fast">
+				<Option output="/home/pi/gakusai2021/Server/cmake-build-release/Server" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/pi/gakusai2021/Server/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/include/opencv4"/>
+					<Add directory="/usr/include/c++/8"/>
+					<Add directory="/usr/include/arm-linux-gnueabihf/c++/8"/>
+					<Add directory="/usr/include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/arm-linux-gnueabihf/8/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/arm-linux-gnueabihf/8/include-fixed"/>
+					<Add directory="/usr/include/arm-linux-gnueabihf"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/pi/gakusai2021/Server/cmake-build-release/Makefile&quot;  VERBOSE=1 Server/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/pi/gakusai2021/Server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/pi/gakusai2021/Server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/pi/gakusai2021/Server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/pi/gakusai2021/Server/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/pi/gakusai2021/Server/cmake-build-release/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/pi/gakusai2021/Server/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/pi/gakusai2021/Server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/pi/gakusai2021/Server/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/pi/gakusai2021/Server/errorhandling.h">
+			<Option target="Server"/>
+		</Unit>
+		<Unit filename="/home/pi/gakusai2021/Server/json/json11.cpp">
+			<Option target="Server"/>
+		</Unit>
+		<Unit filename="/home/pi/gakusai2021/Server/json/json11.hpp">
+			<Option target="Server"/>
+		</Unit>
+		<Unit filename="/home/pi/gakusai2021/Server/main.cpp">
+			<Option target="Server"/>
+		</Unit>
+		<Unit filename="/home/pi/gakusai2021/Server/udpTx.h">
+			<Option target="Server"/>
+		</Unit>
+		<Unit filename="/home/pi/gakusai2021/Server/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/pi/gakusai2021/Server/../../../../usr/local/lib/cmake/opencv4/OpenCVConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\opencv4\"/>
+		</Unit>
+		<Unit filename="/home/pi/gakusai2021/Server/../../../../usr/local/lib/cmake/opencv4/OpenCVConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\opencv4\"/>
+		</Unit>
+		<Unit filename="/home/pi/gakusai2021/Server/../../../../usr/local/lib/cmake/opencv4/OpenCVModules-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\opencv4\"/>
+		</Unit>
+		<Unit filename="/home/pi/gakusai2021/Server/../../../../usr/local/lib/cmake/opencv4/OpenCVModules.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\lib\cmake\opencv4\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
