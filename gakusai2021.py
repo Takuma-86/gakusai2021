@@ -3,10 +3,18 @@ import time
 import posix_ipc
 import json
 
-A_PHASE = 27
-A_ENABLE = 22
-B_PHASE = 5
-B_ENABLE = 25
+A_PHASE = 22
+A_ENABLE = 10
+B_PHASE = 9
+B_ENABLE = 11
+
+IRreceiver1 = 4
+IRreceiver2 = 17
+IRreceiver3 = 14
+IRreceiver4 = 15
+
+RaserGun = 21
+
 SERVO = 19
 
 pi = pigpio.pi()
@@ -18,6 +26,13 @@ pi.set_mode(B_ENABLE, pigpio.OUTPUT)
 
 pi.set_PWM_range(A_ENABLE, 100)
 pi.set_PWM_range(B_ENABLE, 100)
+
+pi.setmode(IRreceiver1, pigpio.INPUT)
+pi.setmode(IRreceiver2, pigpio.INPUT)
+pi.setmode(IRreceiver3, pigpio.INPUT)
+pi.setmode(IRreceiver4, pigpio.INPUT)
+
+pi.setmode(RaserGun, pigpio.OUTPUT)
 
 pi.set_mode(SERVO,pigpio.OUTPUT)
 pi.set_PWM_frequency(SERVO,50)
@@ -38,6 +53,8 @@ shot = 0
 def main():
     mq = posix_ipc.MessageQueue("/gakusai2021.1")
     try:
+        remaining_machines = 5 #残機
+        remaining_bullets = 5 #残弾数
         while 1:
             mqs = mq.receive()
             movementJsonCode = json.loads(mqs[0].decode())
@@ -47,9 +64,22 @@ def main():
             print(movementJsonCode["shoot"])
             print(movementJsonCode["LR"])
             #以下、入力に対して機体を動かすプログラム
-            #変数left,right,shot,radius,stick_degree
-            if shot == 1:
+            #変数left,right,shot_button,reload_button,radius,stick_degree
+            if shot_button == 1:
                 shot()
+                remaining_bullets -=1
+                time.sleep(1)
+
+            hit_check =hit()
+            if hit_check ==1:
+                remaining_machines -=1
+
+            if reload_button ==1:
+                if remaining_bullets!=0:
+                    time.sleep(2)
+                else:
+                    time.sleep(1)
+                remaining_bullets =5
 
             if right + left == 1:
                 if right == 1:
@@ -67,8 +97,14 @@ def main():
         pi.stop()
         exit()
 
-def shot(): #レーザーガン班
+def shot():
+    pass
     return
+
+def hit():#ヒットで1を返す、ミスで0を返す
+    pass
+    return
+
 
 def right_rotation(): #砲塔の右旋回
     global n
