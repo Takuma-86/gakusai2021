@@ -1,3 +1,8 @@
+# @Date:   2021-11-03T16:06:31+09:00
+# @Last modified time: 2021-11-03T21:08:45+09:00
+
+
+
 import pigpio
 import time
 import posix_ipc
@@ -54,7 +59,9 @@ def main():
     mq = posix_ipc.MessageQueue("/gakusai2021.1")
     try:
         remaining_machines = 5 #残機
-        remaining_bullets = 5 #残弾数
+        remaining_bullets = 5 #残弾数　
+        #【画面表示】戦車(被弾前)を5個並べて表示
+        #【画面表示】銃弾(発射前)を5個並べて表示
         while 1:
             mqs = mq.receive()
             movementJsonCode = json.loads(mqs[0].decode())
@@ -67,19 +74,29 @@ def main():
             #変数left,right,shot_button,reload_button,radius,stick_degree
             if shot_button == 1:
                 shot()
-                remaining_bullets -=1
+                remaining_bullets -=1　
+                #【画面表示】一番右の銃弾(発射前)を銃弾(発射後)に切り替え　
                 time.sleep(1)
 
             hit_check =hit()
             if hit_check ==1:
                 remaining_machines -=1
+                #【画面表示】一番右の戦車(被弾前)を戦車(被弾後)に切り替え
+                if remaining_machines==0:
+                    #【画面表示】負けた方にlose、勝った方にwinを５秒表示
+                    pi.stop()
+                    time.sleep(5)
+                    break
 
             if reload_button ==1:
                 if remaining_bullets!=0:
                     time.sleep(2)
+                    #【画面表示】リロードを0.5秒周期で２秒点滅
                 else:
                     time.sleep(1)
+                    #【画面表示】リロードを0.5秒周期で１秒点滅
                 remaining_bullets =5
+                #【画面表示】銃弾(発射前)を5個並べて表示
 
             if right + left == 1:
                 if right == 1:
@@ -93,9 +110,10 @@ def main():
             else:
                 move() #動く
 
+
     except KeyboardInterrupt:
         pi.stop()
-        exit()
+
 
 def shot():
     pass
@@ -198,4 +216,8 @@ def test(): #動作確認用
     stop()
     pi.stop()
 
-main()
+#メイン関数
+while True:
+    start=input() #enter押したら始動
+    if start=='':
+        main()
