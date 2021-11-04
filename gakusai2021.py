@@ -1,5 +1,5 @@
 # @Date:   2021-11-03T16:06:31+09:00
-# @Last modified time: 2021-11-04T18:31:19+09:00
+# @Last modified time: 2021-11-04T20:39:29+09:00
 
 
 
@@ -264,6 +264,7 @@ def move(radius, stick_degree):
         pi.write(A_PHASE, 0)
         pi.write(B_PHASE, 0)
     time.sleep(0.1)
+    stop()
 
     return
 
