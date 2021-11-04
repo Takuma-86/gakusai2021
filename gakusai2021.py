@@ -1,5 +1,5 @@
 # @Date:   2021-11-03T16:06:31+09:00
-# @Last modified time: 2021-11-04T20:39:29+09:00
+# @Last modified time: 2021-11-04T22:20:05+09:00
 
 
 
@@ -110,7 +110,7 @@ def main():
                     left_rotation()
 
 
-            if radius < 5 : #停止(仮置き)ジョイスティックのあそびを考慮
+            if radius < 1 : #停止
                 stop()
             else:
                 move() #動く
@@ -216,51 +216,51 @@ def stop():
         return
 
 def move(radius, stick_degree):
-    if 0 <= stick_degree < 15: #直進
+    if 0 <= stick_degree < 3: #直進
         rightPwm = 100
         leftPwm = 100
-    elif 15<= stick_degree < 75: #右前方
-        rightPwm = 100 - (stick_degree - 15)
+    elif 3 <= stick_degree < 87: #右前方
+        rightPwm = 100 - (stick_degree - 3)
         leftPwm = 100
-    elif 75 <= stick_degree < 105: #右旋回
+    elif 87 <= stick_degree < 93: #右旋回
         rightPwm = 50
         leftPwm = 50
-    elif 105 <= stick_degree < 165: #右後方
-        rightPwm = 100 - (165 - stick_degree)
+    elif 93 <= stick_degree < 177: #右後方
+        rightPwm = 100 - (177 - stick_degree)
         leftPwm = 100
-    elif 165 <= stick_degree < 195: #後退
+    elif 177 <= stick_degree < 183: #後退
         rightPwm = 100
         leftPwm = 100
-    elif 195 <= stick_degree < 255: #左後方
+    elif 183 <= stick_degree < 267: #左後方
         rightPwm = 100
-        leftPwm = 100 - (stick_degree - 195)
-    elif 255 <= stick_degree < 285: #左旋回
+        leftPwm = 100 - (stick_degree - 183)
+    elif 267 <= stick_degree < 273: #左旋回
         rightPwm = 50
         leftPwm = 50
-    elif 285 <= stick_degree < 345: #左前方
+    elif 273 <= stick_degree < 357: #左前方
         rightPwm = 100
-        leftPwm = 100 - (345 - stick_degree)
-    elif 345 <= stick_degree < 360: #直進
+        leftPwm = 100 - (357 - stick_degree)
+    elif 357 <= stick_degree <= 360: #直進
         rightPwm = 100
         leftPwm = 100
 
-    if radius < 50 : #低速
+    if radius <= 70 : #低速
         rightPwm *= 0.5
         leftPwm *= 0.5
 
     pi.set_PWM_dutycycle(A_ENABLE, rightPwm)
     pi.set_PWM_dutycycle(B_ENABLE, leftPwm)
 
-    if 0 <= stick_degree < 75 or 285 <= stick_degree < 360: #前方
+    if 0 <= stick_degree < 87 or 273 <= stick_degree <= 360: #前方
         pi.write(A_PHASE, 0)
         pi.write(B_PHASE, 1)
-    elif 105 <= stick_degree < 255: #後方
+    elif 93 <= stick_degree < 267: #後方
         pi.write(A_PHASE, 1)
         pi.write(B_PHASE, 0)
-    elif 75 <= stick_degree < 105: #右旋回
+    elif 87 <= stick_degree < 93: #右旋回
         pi.write(A_PHASE, 1)
         pi.write(B_PHASE, 1)
-    elif 255 <= stick_degree < 285: #左旋回
+    elif 267 <= stick_degree < 273: #左旋回
         pi.write(A_PHASE, 0)
         pi.write(B_PHASE, 0)
     time.sleep(0.1)
