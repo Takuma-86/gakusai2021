@@ -1,5 +1,5 @@
 # @Date:   2021-11-03T16:06:31+09:00
-# @Last modified time: 2021-11-04T10:42:45+09:00
+# @Last modified time: 2021-11-04T18:31:19+09:00
 
 
 
@@ -122,9 +122,9 @@ def main():
 
 def shot():
     pi.write(RaserGun,1) #発射(点灯)
-    time.sleep(0.5)
+    time.sleep(0.2)
     pi.write(RaserGun,0) #消灯
-    time.sleep(0.5) #発射後硬直
+    time.sleep(0.8) #発射後硬直
     return
 
 def hit():#ヒットで1を返す、ミスで0を返す
@@ -133,23 +133,49 @@ def hit():#ヒットで1を返す、ミスで0を返す
 
     if 0 in check:
         shot_down_list=[]
-        for i in range(4):
-            one_shot_start = time.time()
-            shot_down = []
-            #最初に反応したときから0.1秒までの立下りの秒数を記録しておく
-            while time.time()-one_shot_start <= 0.1:
-                start = time.time()
-                while not pi.read(pin[i]):
-                    pass
+        one_shot_start = time.time()
+        shot_down = [[],[],[],[]]
+        #4つのセンサそれぞれのパルスのスタート時間
+        start_time_list = [time.time()]*4
+        #パルスの立ち下がりの時のみ反応するようにするためのフラグ
+        down_pulse = [False]*4
+        while time.time()-one_shot_start <= 0.1:
+            if not pi.read(IRreceiver1) and not down_pulse[0]:
+                down_pulse[0] = True
+                shot_down[0].append(time.time()-start_time_list[0])
+                start_time_list[0] = time.time()
+            if not pi.read(IRreceiver2) and not down_pulse[1]:
+                down_pulse[1] = True
+                shot_down[1].append(time.time()-start_time_list[1])
+                start_time_list[1] = time.time()
+            if not pi.read(IRreceiver3) and not down_pulse[2]:
+                down_pulse[2] = True
+                shot_down[2].append(time.time()-start_time_list[2])
+                start_time_list[2] = time.time()
+            if not pi.read(IRreceiver4) and not down_pulse[3]:
+                down_pulse[2] = True
+                shot_down[3].append(time.time()-start_time_list[3])
+                start_time_list[3] = time.time()
 
-                shot_down.append(time.time()-start)
+            if pi.read(IRreceiver1):
+                down_pulse[0] = False
+            if pi.read(IRreceiver2):
+                down_pulse[1] = False
+            if pi.read(IRreceiver2):
+                down_pulse[2] = False
+            if pi.read(IRreceiver3):
+                down_pulse[3] = False
+
+        for i in range(4):
             #最初の信号と最後の信号を除いて、平均をとる
-            if len(shot_down) >= 3:
-                shot_down = shot_down[1:-1]
-            shot_down_list.append([sum(shot_down),len(shot_down)])
+            if len(shot_down[i]) >= 3:
+                shot_down[i] = shot_down[i][1:-1]
+            shot_down_list.append([sum(shot_down[i])/len(shot_down[i]),i])
+
+        #shot_down_list：[平均のパルス幅,何番目のセンサか]のリスト
 
         shot_down_list.sort() #平均立ち下がり秒数が最も短いものを先頭に
-        pulse = shot_down_list[0][0]/shot_down_list[0][1]
+        pulse = shot_down_list[0][0]
 
 
         if pulse <= 0.001:#閾値は後で決める
