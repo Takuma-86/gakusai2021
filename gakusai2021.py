@@ -1,5 +1,5 @@
 # @Date:   2021-11-03T16:06:31+09:00
-# @Last modified time: 2021-11-04T22:49:24+09:00
+# @Last modified time: 2021-11-04T22:59:23+09:00
 
 
 
@@ -117,7 +117,7 @@ def main():
             if radius < 1 : #停止
                 stop()
             else:
-                move() #動く
+                move(radius, stick_degree) #動く
 
 
     except KeyboardInterrupt:
