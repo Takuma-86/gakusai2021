@@ -1,5 +1,5 @@
 # @Date:   2021-11-03T16:06:31+09:00
-# @Last modified time: 2021-11-04T22:38:23+09:00
+# @Last modified time: 2021-11-04T22:49:24+09:00
 
 
 
@@ -70,15 +70,19 @@ def main():
             mqs = mq.receive()
             movementJsonCode = json.loads(mqs[0].decode())
             # 以下の入出力を参考すること
-            print(movementJsonCode["joystick"]["r"])
-            print(movementJsonCode["joystick"]["sita"])
-            print(movementJsonCode["shoot"])
-            print(movementJsonCode["LR"])
+            radius = movementJsonCode["joystick"]["radius"]
+            stick_degree = movementJsonCode["joystick"]["stick_degree"]
+            shot_button = movementJsonCode["shot_button"]
+            reload_button = movementJsonCode["reload_button"]
+            left = movementJsonCode["left"]
+            right = movementJsonCode["right"]
+
+
             #以下、入力に対して機体を動かすプログラム
             #変数left,right,shot_button,reload_button,radius,stick_degree
             if shot_button == 1:
                 #【画面表示】一番右の銃弾(発射前)を銃弾(発射後)に切り替え
-                remaining_bullets -=1　
+                remaining_bullets -=1
                 shot()
 
 
