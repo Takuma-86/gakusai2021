@@ -1,5 +1,5 @@
 # @Date:   2021-11-03T16:06:31+09:00
-# @Last modified time: 2021-11-03T21:08:45+09:00
+# @Last modified time: 2021-11-04T10:42:45+09:00
 
 
 
@@ -33,9 +33,13 @@ pi.set_PWM_range(A_ENABLE, 100)
 pi.set_PWM_range(B_ENABLE, 100)
 
 pi.setmode(IRreceiver1, pigpio.INPUT)
+pi.set_pull_up_down(IRreceiver1,pigpio.PUD_UP)
 pi.setmode(IRreceiver2, pigpio.INPUT)
+pi.set_pull_up_down(IRreceiver2,pigpio.PUD_UP)
 pi.setmode(IRreceiver3, pigpio.INPUT)
+pi.set_pull_up_down(IRreceiver3,pigpio.PUD_UP)
 pi.setmode(IRreceiver4, pigpio.INPUT)
+pi.set_pull_up_down(IRreceiver4,pigpio.PUD_UP)
 
 pi.setmode(RaserGun, pigpio.OUTPUT)
 
@@ -73,10 +77,11 @@ def main():
             #以下、入力に対して機体を動かすプログラム
             #変数left,right,shot_button,reload_button,radius,stick_degree
             if shot_button == 1:
-                shot()
+                #【画面表示】一番右の銃弾(発射前)を銃弾(発射後)に切り替え
                 remaining_bullets -=1　
-                #【画面表示】一番右の銃弾(発射前)を銃弾(発射後)に切り替え　
-                time.sleep(1)
+                shot()
+                　
+
 
             hit_check =hit()
             if hit_check ==1:
@@ -90,11 +95,11 @@ def main():
 
             if reload_button ==1:
                 if remaining_bullets!=0:
-                    time.sleep(2)
                     #【画面表示】リロードを0.5秒周期で２秒点滅
+                    time.sleep(2)#画面表示するなら消す
                 else:
-                    time.sleep(1)
                     #【画面表示】リロードを0.5秒周期で１秒点滅
+                    time.sleep(1)#画面表示するなら消す
                 remaining_bullets =5
                 #【画面表示】銃弾(発射前)を5個並べて表示
 
@@ -116,12 +121,44 @@ def main():
 
 
 def shot():
-    pass
+    pi.write(RaserGun,1) #発射(点灯)
+    time.sleep(0.5)
+    pi.write(RaserGun,0) #消灯
+    time.sleep(0.5) #発射後硬直
     return
 
 def hit():#ヒットで1を返す、ミスで0を返す
-    pass
-    return
+    pin=[IRreceiver1,IRreceiver2,IRreceiver3,IRreceiver4]
+    check=[pi.read(IRreceiver1),pi.read(IRreceiver2),pi.read(IRreceiver3),pi.read(IRreceiver4)]
+
+    if 0 in check:
+        shot_down_list=[]
+        for i in range(4):
+            one_shot_start = time.time()
+            shot_down = []
+            #最初に反応したときから0.1秒までの立下りの秒数を記録しておく
+            while time.time()-one_shot_start <= 0.1:
+                start = time.time()
+                while not pi.read(pin[i]):
+                    pass
+
+                shot_down.append(time.time()-start)
+            #最初の信号と最後の信号を除いて、平均をとる
+            if len(shot_down) >= 3:
+                shot_down = shot_down[1:-1]
+            shot_down_list.append([sum(shot_down),len(shot_down)])
+
+        shot_down_list.sort() #平均立ち下がり秒数が最も短いものを先頭に
+        pulse = shot_down_list[0][0]/shot_down_list[0][1]
+
+
+        if pulse <= 0.001:#閾値は後で決める
+            #レーザー受け取ったよ
+            return 1
+        else:
+            #レーザー遠いよ
+            return 0
+    return 0
 
 
 def right_rotation(): #砲塔の右旋回
