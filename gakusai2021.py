@@ -1,5 +1,5 @@
 # @Date:   2021-11-03T16:06:31+09:00
-# @Last modified time: 2021-11-04T22:23:54+09:00
+# @Last modified time: 2021-11-04T22:38:23+09:00
 
 
 
@@ -80,7 +80,7 @@ def main():
                 #【画面表示】一番右の銃弾(発射前)を銃弾(発射後)に切り替え
                 remaining_bullets -=1　
                 shot()
-                　
+
 
 
             hit_check =hit()
